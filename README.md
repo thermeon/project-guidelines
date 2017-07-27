@@ -1,4 +1,4 @@
-[<img src="./images/hive-red-logo.png" width="180" height="180">](http://wearehive.co.uk/)
+[<img src="http://carsplus.thermeon.eu/resources/images/logo_dark.png" width="106" height="39">](http://wearehive.co.uk/)
 
 
 # Project Guidelines &middot; [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
