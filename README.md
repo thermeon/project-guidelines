@@ -733,6 +733,8 @@ Make sure you use resources that you have the rights to use. If you use librarie
 
 
 ---
+Forked from [wearehive/project-guidelines](https://github.com/wearehive/project-guidelines)
+
 Sources:
 [RisingStack Engineering](https://blog.risingstack.com/),
 [Mozilla Developer Network](https://developer.mozilla.org/),
