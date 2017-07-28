@@ -23,6 +23,7 @@ If you want to share a best practice, or think one of these guidelines should be
     - [API security](#api-security)
     - [API documentation](#api-documentation)
 - [Licensing](#licensing)
+- [Changelog](#changelog)
 
 <a name="git"></a>
 ## 1. Git
@@ -644,6 +645,14 @@ For each endpoint explain:
 
 Make sure you use resources that you have the rights to use. If you use libraries, remember to look for MIT, Apache or BSD but if you modify them, then take a look into license details. Copyrighted images and videos may cause legal problems.
 
+<a name="changelog"></a>
+## 11 Changelog
+
+* The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and all projects should adhere to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+
+* The changelog must be updated when making a release and detail every functional change to the user.
+
+* Changelog entries should be written for the entire business to read, not just the technical teams - relate changes to functional things, think about context, and add links to user-facing documentation if there is any.
 
 ---
 Forked from [wearehive/project-guidelines](https://github.com/wearehive/project-guidelines)
