@@ -106,11 +106,11 @@ Because of most of the reasons above, we use [Feature-branch-workflow](https://w
 * Update your feature branch with latest changes from develop by interactive rebase
     ```sh
     git checkout <branchname>
-    git rebase -i --autosquash develop
+    git rebase -i develop
     ```
     
     _Why:_
-    > You can use --autosquash to squash all your commits to a single commit. Nobody wants many commits for a single feature in develop branch [read more...](https://robots.thoughtbot.com/autosquashing-git-commits)
+    > You should commit early, and often, but you only need to share a commit history that adds features atomically. This makes it easier to revert features by commit and much easier to digest code reviews.
     
 * If you don’t have conflict skip this step. If you have conflicts, [resolve them](https://help.github.com/articles/resolving-a-merge-conflict-using-the-command-line/)  and continue rebase
     ```sh
