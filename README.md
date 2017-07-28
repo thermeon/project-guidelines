@@ -150,7 +150,7 @@ Having a good guideline for creating commits and sticking to it makes working wi
  * Limit the subject line to 50 characters and Wrap the body at 72 characters
 
     _why_
-    > Commits should be as fine-grained and focused as possible, it is not the place to be verbose. [read more...](https://medium.com/@preslavrachev/what-s-with-the-50-72-rule-8a906f61f09c)
+    > Commits should be as fine-grained and focused as possible, it is not the place to be verbose. [read more...](https://chris.beams.io/posts/git-commit/)
 
  * Capitalize the subject line
  * Do not end the subject line with a period
@@ -197,31 +197,12 @@ Having a good guideline for creating commits and sticking to it makes working wi
     [read more](https://medium.com/@rafaelvidaurre/managing-environment-variables-in-node-js-2cb45a55195f)
 
 * It’s recommended to validate environment variables before your app starts.  [Look at this sample](./configWithTest.sample.js) using `joi` to validate provided values.
-    
+
     _Why:_
     > It may save others from hours of troubleshooting.
 
 <a name="consistent-dev-environments"></a>
 ### 3.1 Consistent dev environments:
-* Set your node version in `engines` in `package.json`
-    
-    _Why:_
-    > It lets others know the version of node the project works on. [read more...](https://docs.npmjs.com/files/package.json#engines)
-
-* Additionally, use `nvm` and create a  `.nvmrc`  in your project root. Don't forget to mention it in the documentation
-
-    _Why:_
-    > Any one who uses `nvm` can simply use `nvm use` to switch to the suitable node version. [read more...](https://github.com/creationix/nvm)
-
-* It's a good idea to setup a `preinstall` script that checks node and npm versions
-
-    _Why:_
-    > Some dependencies may fail when installed by newer versions of npm.
-    
-* Use Docker image if you can.
-
-    _Why:_
-    > It can give you a consistent environment across the entire workflow. Without much need to fiddle with dependencies or configs. [read more...](https://hackernoon.com/how-to-dockerize-a-node-js-application-4fbab45a0c19)
 
 * Use local modules instead of using globally installed modules
 
@@ -237,32 +218,24 @@ Having a good guideline for creating commits and sticking to it makes working wi
     _Why:_
     > Because you want the code to behave as expected and identical in any development machine [read more...](https://medium.com/@kentcdodds/why-semver-ranges-are-literally-the-worst-817cdcb09277)
 
-    _how:_
-    > Use `package-lock.json` on `npm@5` or higher
-
-    _I don't have npm@5:_
-    > Alternatively you can use `Yarn` and make sure to mention it in `README.md`. Your lock file and `package.json` should have the same versions after each dependency update. [read more...](https://yarnpkg.com/en/)
-
-    _I don't like the name `Yarn`:_
-    > Too bad. For older versions of `npm`, use `—save --save-exact` when installing a new dependency and create `npm-shrinkwrap.json` before publishing. [read more...](https://docs.npmjs.com/files/package-locks)
-
 <a name="dependencies"></a>
 ## 4. Dependencies
 
 ![Github](/images/modules.png)
 
-* Keep track of your currently available packages: e.g., `npm ls --depth=0`. [read more...](https://docs.npmjs.com/cli/ls)
-* See if any of your packages have become unused or irrelevant: `depcheck`. [read more...](https://www.npmjs.com/package/depcheck)
-    
+* Keep track of your currently available packages
+* See if any of your packages have become unused or irrelevant
+
     _Why:_
     > You may include an unused library in your code and increase the production bundle size. Find unused dependencies and get rid of them.
 
-* Before using a dependency, check its download statistics to see if it is heavily used by the community: `npm-stat`. [read more...](https://npm-stat.com/)
-    
+* Before using a dependency, check you aren't important a massive library to crack an egg
+* Before using a dependency, check its download statistics to see if it is heavily used by the community
+
     _Why:_
     > More usage mostly means more contributors, which usually means better maintenance, and all of these result in quickly discovered bugs and quickly developed fixes.
 
-* Before using a dependency, check to see if it has a good, mature version release frequency with a large number of maintainers: e.g., `npm view async`. [read more...](https://docs.npmjs.com/cli/view)
+* Before using a dependency, check to see if it has a good, mature version release frequency with a large number of maintainers
 
     _Why:_
     > Having loads of contributors won't be as effective if maintainers don't merge fixes and patches quickly enough.
@@ -282,18 +255,12 @@ Having a good guideline for creating commits and sticking to it makes working wi
 * Have a `test` mode environment if needed.
 
     _Why:_
-    > While sometimes end to end testing in `production` mode might seem enough, there are some exceptions: One example is you may not want to enable analytical information on a 'production' mode and pollute someone's dashboard with test data. The other example is that your API may have rate limits in `production` and blocks your test calls after a certain amount of requests. 
-
-* Place your test files next to the tested modules using `*.test.js` or `*.spec.js` naming convention, like `moduleName.spec.js`
-
-    _Why:_
-    > You don't want to dig through a folder structure to find a unit test. [read more...](https://hackernoon.com/structure-your-javascript-code-for-testability-9bc93d9c72dc)
-    
+    > While sometimes end to end testing in `production` mode might seem enough, there are some exceptions: One example is you may not want to enable analytical information on a 'production' mode and pollute someone's dashboard with test data. The other example is that your API may have rate limits in `production` and blocks your test calls after a certain amount of requests.
 
 * Put your additional test files into a separate test folder to avoid confusion.
 
     _Why:_
-    > Some test files don't particularly relate to any specific implementation file. You have to put it in a folder that is most likely to be found by other developers: `__test__` folder. This name: `__test__`  is also standard now and gets picked up by most JavaScript testing frameworks.
+    > Some test files don't particularly relate to any specific implementation file. You have to put it in a folder that is most likely to be found by other developers.
 
 * Write testable code, avoid side effects, extract side effects, write pure functions
 
@@ -301,12 +268,6 @@ Having a good guideline for creating commits and sticking to it makes working wi
     > You want to test a business logic as separate units. You have to "minimize the impact of randomness and nondeterministic processes on the reliability of your code". [read more...](https://medium.com/javascript-scene/tdd-the-rite-way-53c9b46f45e3)
     
     > A pure function is a function that always returns the same output for the same input. Conversely, an impure function is one that may have side effects or depends on conditions from the outside to produce a value. That makes it less predictable [read more...](https://hackernoon.com/structure-your-javascript-code-for-testability-9bc93d9c72dc)
-
-* Use a static type checker 
-
-    _Why:_
-    > Sometimes you may need a Static type checker. It brings a certain level of reliability to your code. [read more...](https://medium.freecodecamp.org/why-use-static-types-in-javascript-part-1-8382da1e0adb)
-
 
 * Run tests locally before making any pull requests to `develop`.
 
@@ -363,64 +324,23 @@ Having a good guideline for creating commits and sticking to it makes working wi
     _Why:_
     >When you break down a config file for different purposes (database, API and so on); putting them in a folder with a very recognizable name such as `config` makes sense. Just remember not to make different config files for different environments. It doesn't scale cleanly, as more deploys of the app are created, new environment names are necessary.
     Values to be used in config files should be provided by environment variables. [read more...](https://medium.com/@fedorHK/no-config-b3f1171eecd5)
-    
 
-* Put your scripts in a `./scripts` folder. This includes `bash` and `node` scripts.
-
-    _Why:_
-    >It's very likely you may end up with more than one script, production build, development build, database feeders, database synchronization and so on.
-    
 
 * Place your build output in a `./build` folder. Add `build/` to `.gitignore`.
 
     _Why:_
     >Name it what you like, `dist` is also cool. But make sure that keep it consistent with your team. What gets in there is most likely generated  (bundled, compiled, transpiled) or moved there. What you can generate, your teammates should be able to generate too, so there is no point committing them into your remote repository. Unless you specifically want to. 
 
-* Use `PascalCase' 'camelCase` for filenames and directory names. Use  `PascalCase`  only for Components.
-
-* `CheckBox/index.js` should have the `CheckBox` component, as could `CheckBox.js`, but **not** `CheckBox/CheckBox.js` or `checkbox/CheckBox.js` which are redundant.
-
-* Ideally the directory name should match the name of the default export of `index.js`.
-
-    _Why:_
-    > Then you can expect what component or module you will receive by simply just importing its parent folder.   
-
 <a name="code-style"></a>
 ## 7. Code style
 
 ![Code style](/images/code-style.png)
-
-* Use stage-2 and higher JavaScript (modern) syntax for new projects. For old project stay consistent with existing syntax unless you intend to modernise the project.
-
-    _Why:_
-    > This is all up to you. We use transpilers to use advantages of new syntax. stage-2 is more likely to eventually become part of the spec with only minor revisions. 
 
 * Include code style check in your build process.
 
     _Why:_
     > Breaking your build is one way of enforcing code style to your code. It prevents you from taking it less seriously. Do it for both client and server-side code. [read more...](https://www.robinwieruch.de/react-eslint-webpack-babel/)
 
-* Use [ESLint - Pluggable JavaScript linter](http://eslint.org/) to enforce code style.
-
-    _Why:_
-    > We simply prefer `eslint`, you don't have to. It has more rules supported, the ability to configure the rules, and ability to add custom rules.
-
-* We use [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript) for JavaScript, [Read more](https://www.gitbook.com/book/duk/airbnb-javascript-guidelines/details). Use the javascript style guide required by the project or your team.
-
-* We use [Flow type style check rules for ESLint.](https://github.com/gajus/eslint-plugin-flowtype) when using [FlowType](https://flow.org/).
-
-    _Why:_
-    > Flow introduces few syntaxes that also need to follow certain code style and be checked.
-
-* Use `.eslintignore` to exclude file or folders from code style check.
-
-    _Why:_
-    > You don't have to pollute your code with `eslint-disable` comments whenever you need to exclude a couple of files from style checking.
-
-* Remove any of your `eslint` disable comments before making a Pull Request.
-
-    _Why:_
-    > It's normal to disable style check while working on a code block to focus more on the logic. Just remember to remove those `eslint-disable` comments and follow the rules.
 
 * Depending on the size of the task use  `//TODO:` comments or open a ticket.
 
@@ -429,7 +349,7 @@ Having a good guideline for creating commits and sticking to it makes working wi
 
 
 * Always comment and keep them relevant as code changes. Remove commented blocks of code.
-    
+
     _Why:_
     > Your code should be as readable as possible, you should get rid of anything distracting. If you refactored a function, don't just comment out the old one, remove it.
 
@@ -438,12 +358,7 @@ Having a good guideline for creating commits and sticking to it makes working wi
     _Why:_
     > While your build process may(should) get rid of them, sometimes your source code may get handed over to another company/client and they may not share the same banter.
 
-* Make your names search-able with meaningful distinctions avoid shortened names. For functions Use long, descriptive names. A function name should be a verb or a verb phrase, and it needs to communicate its intention.
-
-    _Why:_
-    > It makes it more natural to read the source code.
-
-* Organize your functions in a file according to the step-down rule. Higher level functions should be on top and lower levels below.
+* Make your names search-able with meaningful distinctions and avoid shortened names. For functions Use long, descriptive names. A function name should be a verb or a verb phrase, and it needs to communicate its intention.
 
     _Why:_
     > It makes it more natural to read the source code.
@@ -453,16 +368,12 @@ Having a good guideline for creating commits and sticking to it makes working wi
 
 ![Logging](/images/logging.png)
 
-* Avoid client-side console logs in production
+* On the frontend, avoid client-side console logs in production
 
     _Why:_
     > Even though your build process can(should) get rid of them, but make sure your code style check gives your warning about console logs.
 
-* Produce readable production logging. Ideally use logging libraries to be used in production mode (such as [winston](https://github.com/winstonjs/winston) or
-[node-bunyan](https://github.com/trentm/node-bunyan)).
-
-    _Why:_
-    > It makes your troubleshooting less unpleasant with colorization, timestamps, log to a file in addition to the console or even logging to a file that rotates daily. [read more...](https://blog.risingstack.com/node-js-logging-tutorial/)
+* On the back-end, services should log to our log collecting service
 
 
 <a name="api"></a>
@@ -497,7 +408,7 @@ _Why:_
     _Why:_
     > Basically, it reads better and keeps URLs consistent. [read more...](https://apigee.com/about/blog/technology/restful-api-design-plural-nouns-and-concrete-names)
 
-* In the source code convert plurals to variables and properties with a List suffix.
+* In the source code consider converting plurals to variables and properties with a List suffix.
 
     _Why_:
     > Plural is nice in the URL but in the source code, it’s just too subtle and error-prone.
@@ -508,6 +419,14 @@ _Why:_
     /students/245743
     /airports/kjfk
     ```
+
+* For microservices, use a record type identifier for the service name and a generic method name for the collection:
+
+    ```
+    /students/record/245743 // GET a single record
+    /students/records // GET collection
+    ```
+
 * Avoid URLs like this: 
     ```
     GET /blogs/:blogId/posts/:postId/summary
@@ -530,12 +449,7 @@ _Why:_
     _Why:_
     > Because for CRUD we use HTTP methods on `resource` or `collection` URLs. The verbs we were talking about are actually `Controllers`. You usually don't develop many of these. [read more...](https://byrondover.github.io/post/restful-api-guidelines/#controller)
 
-* The request body or response type is JSON then please follow `camelCase` for `JSON` property names to maintain the consistency.
-    
-    _Why:_
-    > This is a JavaScript project guideline, Where Programming language for generating JSON as well as Programming language for parsing JSON are assumed to be JavaScript. 
-
-* Even though a resource is a singular concept that is similar to an object instance or database record, you should not use your `table_name` for a resource name and `column_name` resource property.
+* Even though a resource is a singular concept that is similar to an object instance or database record, you should not necessarily use your `table_name` for a resource name and `column_name` resource property.
 
     _Why:_
     > Because your intention is to expose Resources, not your database schema details
@@ -576,9 +490,9 @@ _Why:_
 
     > `POST     /schools` , should create a new school and return the details of the new school created. Use POST on collection-URLs
 
-* Use a simple ordinal number for a version with a `v` prefix (v1, v2). Move it all the way to the left in the URL so that it has the highest scope:
+* Use the semver openapi spec version in the path.
     ```
-    http://api.domain.com/v1/schools/3/students	
+    http://api.domain.com/schools/0.1.0/records
     ```
 
     _Why:_
@@ -644,13 +558,11 @@ The **client app did something wrong** or The **API did something wrong**.
     > Most API providers use a small subset HTTP status codes. For example, the Google GData API uses only 10 status codes, Netflix uses 9, and Digg, only 8. Of course, these responses contain a body with additional information.There are over 70 HTTP status codes. However, most developers don't have all 70 memorized. So if you choose status codes that are not very common you will force application developers away from building their apps and over to wikipedia to figure out what you're trying to tell them. [read more...](https://apigee.com/about/blog/technology/restful-api-design-what-about-errors)
 
 
-* Provide total numbers of resources in your response
-* Accept `limit` and `offset` parameters
+* Provide total numbers of resources in your response where possible
+* Accept `limit` and `start` parameters
 
-* The amount of data the resource exposes should also be taken into account. The API consumer doesn't always need the full representation of a resource.Use a fields query parameter that takes a comma separated list of fields to include:
-    ```
-    GET /student?fields=id,name,age,class
-    ```
+* The amount of data the resource exposes should also be taken into account. The API consumer doesn't always need the full representation of a resource.
+
 * Pagination, filtering, and sorting don’t need to be supported from start for all resources. Document those resources that offer filtering and sorting.
 
 <a name="api-security"></a>
@@ -692,7 +604,8 @@ These are some basic security best practices:
 
 <a name="api-documentation"></a>
 ### 9.3 API documentation
-* Fill the `API Reference` section in [README.md template](./README.sample.md) for API.
+* Fill the `API Reference` section in [README.md template](./README.sample.md) to refer to an openapi spec to fully document the API. Ideally, the service should serve the spec for browsing/interaction in [Swagger UI](https://swagger.io/swagger-ui/)
+* Make sure Description fields explain the context and intention of fields to the user
 * Describe API authentication methods with a code sample
 * Explaining The URL Structure (path only, no root URL) including The request type (Method)
 
@@ -723,7 +636,7 @@ For each endpoint explain:
     ```
 
 
-* Use API design tools, There are lots of open source tools for good documentation such as [API Blueprint](https://apiblueprint.org/) and [Swagger](https://swagger.io/).
+* Use API design tool [Swagger](https://swagger.io/) aka openapi
 
 <a name="licensing"></a>
 ## 10. Licensing
